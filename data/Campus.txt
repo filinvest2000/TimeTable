@@ -1,0 +1,4 @@
+[{"CAMPUS_CODE":"CRN","CAMPUS_DESC":"Croydon"},
+{"CAMPUS_CODE":"HAW","CAMPUS_DESC":"Hawthorn"},
+{"CAMPUS_CODE":"PRA","CAMPUS_DESC":"Prahran"},
+{"CAMPUS_CODE":"WAN","CAMPUS_DESC":"Wantirna"}]

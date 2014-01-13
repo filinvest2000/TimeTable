@@ -1,0 +1,343 @@
+<!DOCTYPE html> 
+<html> 
+<head>
+	<meta name="HandheldFriendly" content="true">
+	<meta name="viewport" content="user-scalable=yes, width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="css/jquery.mobile-1.3.2.min.css" />
+	<link rel="stylesheet" href="css/timetable.css" />
+	<script src="js/jquery-1.10.2.min.js"></script>
+	<script src="js/jquery.mobile-1.3.2.min.js"></script>
+	<script src="js/subjectlist.js"></script>
+
+<!--	<script src="js/jquery.ui.touch-punch.min.js"></script>
+<!--	<script src="http://code.jquery.com/ui/1.10.3/jquery-ui.min.js"></script>-->
+</head> 
+<Body>
+
+<!--Search page-->
+<div data-role="page" id="search">
+
+<div data-role="header" data-position="fixed">
+  <table width=100%>
+	<tr>
+		<td><img src="images/logo.png" alt="logo" /></td>
+		<td>
+		<div id="outer">
+		<div id="inner"><h3>Swinburne Timetable</h3></div>
+		</div>
+		</td>
+<!--		<td><a id="reset" data-icon="refresh">Reset</a></td>-->
+		<td width=10%><button id="reset" data-inline=true data-icon=refresh>Reset</button></td>
+
+	</tr>
+  </table>
+</div><!--/header-->
+
+<div data-role="content">
+<div class="ui-bar-c ui-corner-all ui-shadow" style="padding:1em;"  data-theme="b">
+	
+	<div><h4 id="SearchH5Text"></h4></div>
+	
+
+	<div data-role="fieldcontain" class="ui-hide-label">
+	<label for="search-unitcode">Search by Unit Code:</label>
+	<input type="search" id="search-unitcode" placeholder="Try - HRM20012">
+    </div>
+	
+	<div id="outer">
+    <div id="inner">Or</div>
+	</div>
+ 
+	<div data-role="fieldcontain" class="ui-hide-label">
+	<label for="search-unitname">Search by Unit Desctiption:</label>
+	<input type="search" id="search-unitname" placeholder=HEA10001_Description>
+	</div>
+<!---Teaching Period--> 
+	<div data-role="fieldcontain" class="ui-hide-label">
+	<label for="select teachperiod">Teaching Period:</label> 
+	<select name="teachperiod" id="teachperiod">
+	<option value="All">All</option>
+	</select>
+	</div>
+<!---Campus--> 
+	<div data-role="fieldcontain" class="ui-hide-label">
+	<label for="select campus">Campus:</label> 
+	<select name="campus" id="campus">
+	<option value="All">All</option>
+	</select>
+	</div>
+
+	<div id="day-time-filter-div" class="module">
+		<div class="upper_sec">Day and Time</div>
+			
+			<div data-role="fieldcontain" class="ui-hide-label">
+
+				<fieldset id="daycheckbox" data-role="controlgroup" data-type="horizontal">
+				<input type="checkbox" name="day-1" id="day-1" value="Monday"  onchange="dayCheckboxClicked(this.value,this.checked);">
+				<label for="day-1">Mon</label>
+				<input type="checkbox" name="day-2" id="day-2" value="Tuesday" onchange="dayCheckboxClicked(this.value,this.checked);">
+				<label for="day-2">Tue</label>
+				<input type="checkbox" name="day-3" id="day-3" value="Wednesday"  onchange="dayCheckboxClicked(this.value,this.checked);">
+				<label for="day-3">Wed</label>
+				<input type="checkbox" name="day-4" id="day-4" value="Thursday"  onchange="dayCheckboxClicked(this.value,this.checked);">
+				<label for="day-4">Thu</label>
+				<input type="checkbox" name="day-5" id="day-5" value="Friday"  onchange="dayCheckboxClicked(this.value,this.checked);">
+				<label for="day-5">Fri</label>
+				<input type="checkbox" name="day-6" id="day-6" value="Saturday"  onchange="dayCheckboxClicked(this.value,this.checked);">
+				<label for="day-6">Sat</label>
+				<input type="checkbox" name="day-0" id="day-0" value="Sunday"  onchange="dayCheckboxClicked(this.value,this.checked);">
+				<label for="day-0">Sun</label>
+				</fieldset>
+
+			</div>
+				<br class="mobile-only">
+				
+			<div id="time-filter" class="filter-set">
+				<b>Starting After</b>
+				<select id="start-time-filter" name="start-time" onchange="selecTime(this.name, this.value)">
+				<option value="00:00">00:00</option>
+				<option value="01:00">01:00</option>
+				<option value="02:00">02:00</option>
+				<option value="03:00">03:00</option>
+				<option value="04:00">04:00</option>
+				<option value="05:00">05:00</option>
+				<option value="06:00">06:00</option>
+				<option value="07:00">07:00</option>
+				<option value="08:00" selected>08:00</option>
+				<option value="09:00">09:00</option>
+				<option value="10:00">10:00</option>
+				<option value="11:00">11:00</option>
+				<option value="12:00">12:00</option>
+				<option value="13:00">13:00</option>
+				<option value="14:00">14:00</option>
+				<option value="15:00">15:00</option>
+				<option value="16:00">16:00</option>
+				<option value="17:00">17:00</option>
+				<option value="18:00">18:00</option>
+				<option value="19:00">19:00</option>
+				<option value="20:00">20:00</option>
+				<option value="21:00">21:00</option>
+				<option value="22:00">22:00</option>
+				<option value="23:00">23:00</option>
+				</select>
+				
+				 and <b>Before</b>
+				<select id="end-time-filter" name="end-time" onchange="selecTime(this.name, this.value)">
+				<option value="00:00">00:00</option>
+				<option value="01:00">01:00</option>
+				<option value="02:00">02:00</option>
+				<option value="03:00">03:00</option>
+				<option value="04:00">04:00</option>
+				<option value="05:00">05:00</option>
+				<option value="06:00">06:00</option>
+				<option value="07:00">07:00</option>
+				<option value="08:00">08:00</option>
+				<option value="09:00">09:00</option>
+				<option value="10:00">10:00</option>
+				<option value="11:00">11:00</option>
+				<option value="12:00">12:00</option>
+				<option value="13:00">13:00</option>
+				<option value="14:00">14:00</option>
+				<option value="15:00">15:00</option>
+				<option value="16:00">16:00</option>
+				<option value="17:00">17:00</option>
+				<option value="18:00">18:00</option>
+				<option value="19:00">19:00</option>
+				<option value="20:00">20:00</option>
+				<option value="21:00">21:00</option>
+				<option value="22:00">22:00</option>
+				<option value="23:00" selected>23:00</option>
+				</select>
+			</div>
+	</div>
+</div>
+
+<br>	
+<br>
+<button id="SearchSubj" data-inline="false" data-icon="search" data-theme="b">Search</button>
+	
+<div data-role="footer" data-position="fixed" data-id="nav2">
+   <div data-role="navbar" data-iconpos="left">
+		<ul>
+		<li><a href="#MyTimetable" data-icon="grid" data-transition="slideup">My Timetable</a></li>
+		<li><a href="#resultpage" data-icon="grid" data-transition="slidedown">Search Results</a></li>
+		</ul>
+    </div>
+</div>
+</div> <!--/footer-->
+
+</div> <!--/page-->
+
+<!--RESULTS PAGE -->
+<div data-role="page" id="resultpage">
+
+  <div data-role="header" data-position="fixed">
+	<a href="#search" data-icon="delete" data-transition="slide">Cancel</a>
+	<h1>Search Results</h1>
+	<a id="saveSchedule" data-icon="check">Save</a>
+  </div><!--/header-->
+
+<!-- Content-->
+<div data-role="content" id="collapslist">
+
+<div id="resultText"></div>
+</div> <!--/content -->
+
+	<div data-role="footer" data-position="fixed" data-id="nav3">
+	<div data-role="navbar" data-iconpos="left">
+		<ul>
+		<li><a href="#MyTimetable" data-icon="grid" data-transition="slideup">My Timetable</a></li>
+		<li><a href="#search" data-icon="refresh" data-transition="slideup">Search</a></li>
+		</ul>
+	</div>
+	
+	
+	</div> <!--/footer-->
+</div> <!--/page-->
+
+
+<!--My Timetable -->
+<div data-role="page" id="MyTimetable">
+
+<div data-role="header" data-position="fixed">
+	<a href="#EditTimetable" data-icon="gear" data-transition="slide" data-direction="reverse">Edit</a>
+	<h1>My Timetable</h1>
+	<a href="#search" data-icon="plus">Add</a>
+</div><!--/header-->
+
+<div><h3>This is My Timetable Page</h3></div>
+
+<div data-role="footer" data-position="fixed" data-id="nav1">
+	<div data-role="navbar" data-iconpos="left">
+		<ul>
+		<li><a href="#search" data-icon="gear" data-transition="slidedown">Search</a></li>
+		<li><a href="#resultpage" data-icon="grid" data-transition="slideup">Search Results</a></li>
+		</ul>
+	</div>
+</div>
+</div> <!--/footer-->
+</div> <!--/page-->
+
+<!--Edit Timetable -->
+<div data-role="page" id="EditTimetable">
+
+<div data-role="header" data-position="fixed">
+	<a href="#MyTimetable" data-icon="delete" data-transition="slide">Cancel</a>
+	<h1>Edit Timetable</h1>
+	<a href="#MyTimetable" data-icon="check" data-transition="slide">Save</a>
+</div><!--/header-->
+<!-- content start -->
+<div id="divcontent" data-role="collapsible-set" data-theme="b" data-content-theme="d">
+   
+    <div id="collaps" data-role="collapsible">
+        <h4><div class="title">Hawthron Campus <span class="recordcount">Found: 2</span></div></h4>
+        <ul id="list_1" data-role="listview" data-filter="true" data-filter-theme="c" data-divider-theme="d">
+			<li data-role="list-divider">Group: TU1  Activity: 1  <span class="ui-li-count">Avail: 22</span></li>
+			<li><a href="#" style="padding-top: 0px;padding-bottom: 0px;padding-right: 0px;padding-left: 0px;" >
+                        <label style="border-top-width: 0px;margin-top: 0px;border-bottom-width: 0px;margin-bottom: 0px;border-left-width: 0px;border-right-width: 0px;" data-corners="false" >
+                            <fieldset data-role="controlgroup" >                                                        
+                                <input type="checkbox" name="checkbox-2b" id="checkbox-2b" data-theme="c"/>                    
+                                <label for="checkbox-2b" style="border-top-width: 0px;margin-top: 0px;border-bottom-width: 0px;margin-bottom: 0px;border-left-width: 0px;border-right-width: 0px;">
+                                    <label  style="padding:10px 0px 0px 10px;"> 
+										<p>Group: TU1  Activity: 1</p>
+										<p><strong>HRM20012_HS1_HAW</strong></p>
+										<p><strong>HRM20012_HS1_HAW_Description</strong></p>
+										<p><strong>Day: Monday  Time: 18:30</strong></p>
+										<p><strong>Start Date:6/03/2014</strong></p>
+
+										<p><strong>LOc: ACT01  Staff: Allan Bond</strong></p>
+										<p>Weeks: 5/03/2014,12/03/2014,19/03/2014,26/03/2014</p>
+                                    </label> 
+                                </label>
+                            </fieldset>    
+                        </label>
+                        </a>
+            </li>
+			<li data-role="list-divider">Group: TU1  Activity: 2  <span class="ui-li-count">Avail: 25</span></li>
+			<li><!--<a href="#" style="padding-top: 0px;padding-bottom: 0px;padding-right: 0px;padding-left: 0px;" > -->
+                        <label style="border-top-width: 0px;margin-top: 0px;border-bottom-width: 0px;margin-bottom: 0px;border-left-width: 0px;border-right-width: 0px;" data-corners="false" >
+                            <fieldset data-role="controlgroup" >                                                        
+                                <input type="checkbox" name="checkbox-2b" id="checkbox-2b" data-theme="c"/>                    
+                                <label for="checkbox-2b" style="border-top-width: 0px;margin-top: 0px;border-bottom-width: 0px;margin-bottom: 0px;border-left-width: 0px;border-right-width: 0px;">
+                                    <label  style="padding:10px 0px 0px 10px;">
+										<p>Group: TU1  Activity: 2</p>
+										<p><strong>HRM20012_HS1_HAW</strong></p>
+										<p><strong>HRM20012_HS1_HAW_Description</strong></p>
+										<p><strong>Start Date:6/03/2014</strong></p>
+										<p><strong>Day: Tuesday  Time: 15:30</strong></p>
+										<p><strong>Loc: ACT01  Staff: Jaime Peret</strong></p>
+										<p>Weeks: 5/03/2014,12/03/2014,19/03/2014,26/03/2014</p>
+                                    </label> 
+                                </label>
+                            </fieldset>    
+                        </label>
+                   <!--     </a> -->
+            </li>
+			
+        </ul>
+    </div>
+	<!-- -->
+	<div id="collaps1" data-role="collapsible">
+        <h4 id="head1"><div class="title">Wantirna Campus <span class="recordcount">Found: 2</span></div></h4>
+        <ul id="resultlist" data-role="listview" data-filter="true" data-filter-theme="c" data-divider-theme="d">
+		<li data-role="list-divider">Group: LE1  Activity: 1  <span class="ui-li-count">Avail: 20</span></li>
+            <li><a href="#" style="padding-top: 0px;padding-bottom: 0px;padding-right: 0px;padding-left: 0px;" >
+                        <label style="border-top-width: 0px;margin-top: 0px;border-bottom-width: 0px;margin-bottom: 0px;border-left-width: 0px;border-right-width: 0px;" data-corners="false" >
+                            <fieldset data-role="controlgroup" >                                                        
+                                <input type="checkbox" name="checkbox-2b" id="checkbox-2b" data-theme="c"/>                    
+                                <label for="checkbox-2b" style="border-top-width: 0px;margin-top: 0px;border-bottom-width: 0px;margin-bottom: 0px;border-left-width: 0px;border-right-width: 0px;">
+                                    <label  style="padding:10px 0px 0px 10px;">
+										<p>Group: LE1  Activity: 1</p>
+										<p><strong>HRM20012_HS2_HAW</strong></p>
+										<p><strong>HRM20012_HS2_HAW_Description</strong></p>									
+										<p><strong>Start Date:6/03/2014</strong></p>
+										<p><strong>Day: Monday  Time: 18:30</strong></p>
+										<p><strong>LOc: ACT01  Staff: Allan Bond</strong></p>
+										<p>Weeks: 5/03/2014,12/03/2014,19/03/2014,26/03/2014</p>
+                                    </label> 
+                                </label>
+                            </fieldset>    
+                        </label>
+                        </a>
+            </li>
+			<li data-role="list-divider">Group: LE1  Activity: 2  <span class="ui-li-count">Avail: 30</span></li>
+			<li><a href="#" style="padding-top: 0px;padding-bottom: 0px;padding-right: 0px;padding-left: 0px;" >
+                        <label style="border-top-width: 0px;margin-top: 0px;border-bottom-width: 0px;margin-bottom: 0px;border-left-width: 0px;border-right-width: 0px;" data-corners="false" >
+                            <fieldset data-role="controlgroup" >                                                        
+                                <input type="checkbox" name="checkbox-2b" id="checkbox-2b" data-theme="c"/>                    
+                                <label for="checkbox-2b" style="border-top-width: 0px;margin-top: 0px;border-bottom-width: 0px;margin-bottom: 0px;border-left-width: 0px;border-right-width: 0px;">
+                                    <label  style="padding:10px 0px 0px 10px;">
+										<p>Group: LE1  Activity: 2</p>
+										<p><strong>HRM20012_HS1_HAW</strong></p>
+										<p><strong>HRM20012_HS1_HAW_Description</strong></p>									
+										<p><strong>Start Date:6/03/2014</strong></p>
+										<p><strong>Day: Tuesday  Time: 18:30</strong></p>
+										<p><strong>Loc: ACT01  Staff: Allan Bond</strong></p>
+										<p>Weeks: 5/03/2014,12/03/2014,19/03/2014,26/03/2014</p>
+                                    </label> 
+                                </label>
+                            </fieldset>    
+                        </label>
+                        </a>
+            </li>
+			
+        </ul>
+	
+    </div>
+	<p id="resultText"></p>	
+</div>
+<!-- /content -->
+
+<div data-role="footer" data-position="fixed" data-id="nav1">
+	<div data-role="navbar" data-iconpos="left">
+		<ul>
+		<li><a href="#search" data-icon="gear" data-transition="slideup">Search</a></li>
+		<li><a href="#resultpage" data-icon="grid" data-transition="slideup">Search Results</a></li>
+		</ul>
+	</div>
+</div> <!--/footer-->
+</div> <!--/page-->
+
+
+</Body>
+</html>

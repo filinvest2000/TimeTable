@@ -1,0 +1,26 @@
+#outer {
+    text-align: center;
+}
+#inner {
+    text-align: left;
+    display: inline-block;
+}
+.right {
+    float: right
+}
+
+.title .recordcount { float:right }
+.title .campuz { float:left }
+
+#recfound {
+  float: right;
+
+.checkBoxLeft{
+    position: absolute; 
+    left: 10px; 
+    top: 28%;
+    width: 18px;
+    height: 18px;
+    background: #d9d9d9;
+    border-radius: 3px;  
+}
