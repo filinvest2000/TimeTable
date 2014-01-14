@@ -151,7 +151,6 @@ $(document).ready(function() {
 				alert('Save Selected \n =====>TO DO NEXT <====');
 		});
 	
-	
 }); //end document.ready
 
 
@@ -383,6 +382,8 @@ function printResults()
 			$('#collapslist').append(html) 
 			$('#collapslist').trigger('create');
 			
+		$.mobile.changePage("#dialog", { transition: "pop",role: "dialog" });
+		
 		}
 		
 	if (recordTotal > 0)
@@ -453,8 +454,10 @@ function printResults()
 		html +=	'</div>';
 		$('#collapslist').append(html)
 		// Force create the collapeible list. 
-		$('#collapslist').trigger('create');
+		$('#collapslist').trigger('create')
+	 
 	}
+	  
 }
 
 
